@@ -9,6 +9,11 @@ var next = null;
 var prev = null;
 document.addEventListener('keydown', (event) => {
   const keyName = event.key;
+  if(document.querySelector("input.stdinput" ) === document.activeElement)
+  {
+  	console.log("document.activeElement");
+  	return;
+  }
 
   if (keyName === 'ArrowLeft' && prev) {
     window.location.assign(prev);

@@ -3,7 +3,7 @@
 // @description	Replace text lists and search results as covers
 // @namespace   uid35
 // @include     *://vndb.org/*
-// @version     1.13
+// @version     1.14
 // @grant       GM_setValue
 // @grant       GM_getValue
 // @grant       GM_log
@@ -42,7 +42,7 @@ GM_addStyle("	.coverTopPeri{\
 			border-radius: 	5px;\
 			border: 	2px outset;\
 			position: 	relative;\
-			height:		400px;\
+			height:		402px;\
 			min-width:	200px;\
 			text-align: 	center;\
 			line-height: 	400px;\
@@ -175,7 +175,9 @@ if(first){
 		}
 		findx('tbody .tc_t a');
 		findx('tbody .tc2 > a');
+		findx('tbody .tc1 > a');
 		findx('tbody .tc2 .grayedout a');
+		findx('tbody .vn  a');
 		// var list_table = document.getElementById("list_table");
 		// var paginator = list_table.nextSibling.nextSibling;
 		// list_table.parentNode.insertBefore(coverListPerii, list_table);
