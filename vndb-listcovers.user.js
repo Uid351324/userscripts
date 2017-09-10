@@ -6,6 +6,8 @@
 // @version     1.14
 // @grant       GM_setValue
 // @grant       GM_getValue
+// @grant       GM_listValues
+// @grant       GM_deleteValue
 // @grant       GM_log
 // @grant       GM_addStyle
 // @grant       GM_getResourceURL 
@@ -101,6 +103,10 @@ GM_addStyle("	.coverTopPeri{\
 function replaceWithCovers()
 {
 	console.log("first" + first);
+// 	var keys = GM_listValues();
+// for (var i=0, key=null; key=keys[i]; i++) {
+//   GM_deleteValue(key);
+// }
 if(first){
 	first = false;
 	var isSeries =  document.URL.indexOf('series.html') != -1 ;
@@ -317,7 +323,7 @@ function getImgSrc(id, img)
 	console.log( " url. "+ url); 
 	if (GM_getValue(url)) {
 		var retrievedLink = GM_getValue(url);
-// 		console.log(id + " from  cache."); 
+ 		console.log(id + " from  cache."); 
 		img.src = retrievedLink;
 	}
 	else {
@@ -410,7 +416,7 @@ function ll() {
 	}
 	      else{
 // 	        el.src = src;//--
-			el.className="lazyPostPeri";
+// 			el.className="lazyPostPeri";
 	        el.src = this.src;//++
 	      }
 

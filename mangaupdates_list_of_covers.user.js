@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.19
+// @version     1.20
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -22,6 +22,8 @@
 // @grant       GM_addStyle
 // @grant       GM_getResourceURL 
 // @grant       GM_xmlhttpRequest 
+// @grant       GM_listValues
+// @grant       GM_deleteValue
 // ==/UserScript==
 var button = document.createElement("a");
 var show = false;
@@ -29,10 +31,20 @@ var first = true;
 var protocl = (("https:" == document.location.protocol) ?
     "https://" : "http://");
 button.innerHTML = "switch view";
-button.id = "coverButton";
+// button.id = "coverButton";
 button.className = "button";
-document.body.appendChild(button);
 button.addEventListener("click", replaceWithCovers);
+var buttonx = document.createElement("a");
+buttonx.innerHTML = "x";
+// buttonx.id = "coverButton";
+buttonx.className = "button";
+buttonx.addEventListener("click", deleteCovers);
+
+var buttons = document.createElement("div");
+buttons.className = "coverButton";
+buttons.appendChild(buttonx);
+buttons.appendChild(button);
+document.body.appendChild(buttons);
 {
 	var isCat = document.URL.indexOf('series.html?category=') != -1 ;
     if(isCat)
@@ -110,7 +122,7 @@ GM_addStyle("	.coverTop{\
 		.cover:hover .info{\
 			display:	block;\
 		}\
-		#coverButton{\
+		.coverButton{\
 			position: 	fixed;\
 			top: 		0px;\
 			right: 		0px;\
@@ -128,6 +140,14 @@ GM_addStyle("	.coverTop{\
 		");
 
 ///////////////////////////////////////////////////////////
+function deleteCovers()
+{
+ 	var keys = GM_listValues();
+	 for (var i=0, key=null; key=keys[i]; i++) {
+	 		console.log("delete " + key  );
+		   GM_deleteValue(key);
+		 }
+}
 function replaceWithCovers()
 {
 	console.log("first" + first);
@@ -333,7 +353,7 @@ function populateCovers(element, coverList, isSeries, isAuthor)
 		text = info[0].firstChild.firstChild.textContent;
 	}
 	img.alt = text;
-// 	console.log("text: " + text);
+ 	console.log("text: " + text);
 	cover.className = "cover";
 	cover.id = "c" + id;
 	img.id =  id;//"i" +
@@ -349,7 +369,7 @@ function getImgSrc(id, img)
 	var url = protocl + "www.mangaupdates.com/series.html?id=" + id;
 	if (GM_getValue(url)) {
 		var retrievedLink = GM_getValue(url);
-// 		console.log(id + " from  cache."); 
+ 		console.log(id + " from  cache."); 
 		img.src = retrievedLink;
 	}
 	else {
