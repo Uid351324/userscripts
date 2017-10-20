@@ -312,7 +312,7 @@ function populateCovers(element, coverListPeri, isSeries, isAuthor)
 	span.className = "infoPeri";
 }
 
-function getImgSrc(id, img)
+function getImgSrc(id, img, delay=3000)
 {
 	console.log(id); 
 	// document.getElementByID(id)
@@ -330,15 +330,56 @@ function getImgSrc(id, img)
 			GM_xmlhttpRequest({
 				method: "GET",
 				url: url,
-				context: {img: img}, 
-				onload: getHTML
+				context: {img: img, idUrl: url }, 
+				onload: getHTML,
+				timeout: delay-1000,
+				ontimeout: getTimeout,
+				onerror: getError
 			});
 	}
+	setTimeout(testDelay, delay, id, img, delay);
+}
+function testDelay(id,img, delay)
+{
+	if(!img.src)
+	{
+		console.log(delay +' testDelay ' +id);
+		// img.className = "lazyPeri";
+		if(delay > 20000)
+		{
+			console.log( 'end testDelay ');
+			img.src = 'https://s.vndb.org/s/angel/bg.jpg?2.26-27-g877f69f9';
+			return;
+		}
+		getImgSrc(id, img,delay*2);
+	}
+}
+
+function getError(response) 
+{
+
+	var img = response.context.img;
+	var url = response.context.idUrl;
+	console.log( ' error ' +url);
+}
+function getTimeout(response) 
+{
+	var img = response.context.img;
+	var url = response.context.idUrl;
+	console.log( ' timeout ' +url);
+	GM_xmlhttpRequest({
+				method: "GET",
+				url: url,
+				context: {img: img, idUrl: url }, 
+				onload: getHTML,
+				onerror: getError
+			});
 }
 function getHTML(response) 
 {
 	
 	var img = response.context.img;
+	var url = response.context.idUrl;
 	var responseXML = null;
 	    // Inject responseXML into existing Object (only appropriate for XML content).
 	    if (!response.responseXML) {
@@ -355,10 +396,11 @@ function getHTML(response)
 		GM_setValue(response.finalUrl, imagelink);
  	
 		img.src = imagelink;
-		console.log( ' from ajax'); // for testing purposes
+		console.log( ' from ajax ' +url); // for testing purposes
 	}
 	else{
-		console.log('no image from ajax'); // for testing purposes
+		console.log('no image from ajax' +url); // for testing purposes
+		img.src = 'https://s.vndb.org/s/angel/bg.jpg?2.26-27-g877f69f9';
 	}
 }
 /* ============================================================================
