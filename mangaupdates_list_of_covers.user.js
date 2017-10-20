@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.20
+// @version     1.21
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -49,11 +49,11 @@ document.body.appendChild(buttons);
 	var isCat = document.URL.indexOf('series.html?category=') != -1 ;
     if(isCat)
     {
-    	console.log("isCat")
+    	console.log("isCat");
     	var ulink = document.querySelectorAll('a[href*="genresearch"]')[0];
-    	console.log(ulink)
+    	console.log(ulink);
     	tags = QueryUrl();
-    	console.log(tags)
+    	console.log(tags);
     	ulink.href += "&tags="+tags.category;
     }
 	var isSearch = document.URL.indexOf('series.html?act=genresearch') != -1 ;
@@ -143,7 +143,7 @@ GM_addStyle("	.coverTop{\
 function deleteCovers()
 {
  	var keys = GM_listValues();
-	 for (var i=0, key=null; key=keys[i]; i++) {
+	 for (var i=0, key=null; i<keys.length;key=keys[i], i++) {
 	 		console.log("delete " + key  );
 		   GM_deleteValue(key);
 		 }
@@ -165,7 +165,7 @@ if(first){
     document.body.appendChild(coverListTop);
 	if(isSeries)
 	{
-		rows = document.getElementsByClassName('col1');
+		var rows = document.getElementsByClassName('col1');
 		for (i = 0; i < rows.length; i++) 
 		{
 			populateCovers(rows[i], coverList, isSeries, isAuthor);
@@ -195,7 +195,7 @@ if(first){
 	{
 		var list_table = document.querySelectorAll('#main_content > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child(1)')[0];
 		
-		rows = list_table.getElementsByTagName('a');
+		var rows = list_table.getElementsByTagName('a');
 		for (i = 2; i < rows.length; i++) 
 		{
 			populateCovers(rows[i], coverList, isSeries, isAuthor);
@@ -209,7 +209,7 @@ if(first){
 	{
 		var list_table = document.querySelectorAll('#main_content > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child(1)')[0];
 		
-		rows = list_table.getElementsByTagName('a');
+		var rows = list_table.getElementsByTagName('a');
 		for (i = 0; i < rows.length; i++) 
 		{
 			populateCovers(rows[i], coverList, isSeries, true);
@@ -426,10 +426,9 @@ function getHTML(response)
 	var img = response.context.img;
 	var responseXML = null;
 	    // Inject responseXML into existing Object (only appropriate for XML content).
-	    if (!response.responseXML) {
-	      responseXML = new DOMParser()
-	        .parseFromString(response.responseText, "text/html");
-	    }
+	// if (!response.responseXML) {
+	      responseXML = (new DOMParser()).parseFromString(response.responseText, "text/html");
+	    // }
 	var image = responseXML.querySelectorAll(	'div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(2) > center:nth-child(1) > img:nth-child(1)');
 // 									'div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(2) > center:nth-child(1) > img:nth-child(1)'
 	if(image[0]){
