@@ -3,7 +3,7 @@
 // @description	Replace text lists and search results as covers
 // @namespace   uid35
 // @include     *://vndb.org/*
-// @version     1.14
+// @version     1.15
 // @grant       GM_setValue
 // @grant       GM_getValue
 // @grant       GM_listValues
@@ -382,10 +382,11 @@ function getHTML(response)
 	var url = response.context.idUrl;
 	var responseXML = null;
 	    // Inject responseXML into existing Object (only appropriate for XML content).
-	    if (!response.responseXML) {
-	      responseXML = new DOMParser()
-	        .parseFromString(response.responseText, "text/html");
-	    }
+	    // if (!response.responseXML) {
+	    //   responseXML = new DOMParser()
+	    //     .parseFromString(response.responseText, "text/html");
+	    // }
+	    responseXML = (new DOMParser()).parseFromString(response.responseText, "text/html");
 	var image = responseXML.querySelectorAll(	'.mainbox img');
 // 									'div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(2) > center:nth-child(1) > img:nth-child(1)'
 	if(image[0]){
