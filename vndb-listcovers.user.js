@@ -3,7 +3,7 @@
 // @description	Replace text lists and search results as covers
 // @namespace   uid35
 // @include     *://vndb.org/*
-// @version     1.15
+// @version     1.15.1
 // @grant       GM_setValue
 // @grant       GM_getValue
 // @grant       GM_listValues
@@ -87,7 +87,7 @@ GM_addStyle("	.coverTopPeri{\
 			float: 		left;\
 			}\
 		.lazyPeri{\
-			heighPerit: 400px;\
+			max-height: 400px;\
 			vertical-align: middle;\
 		}\
 		.lazyPostPeri{\
