@@ -16,6 +16,7 @@
 var button = document.createElement("a");
 var show = false;
 var first = true;
+var http_delay=500;
 var protocl = (("https:" == document.location.protocol) ?
     "https://" : "http://");
 button.innerHTML = "switch view";
@@ -327,17 +328,32 @@ function getImgSrc(id, img, delay=3000)
 		img.src = retrievedLink;
 	}
 	else {
-			GM_xmlhttpRequest({
-				method: "GET",
-				url: url,
-				context: {img: img, idUrl: url }, 
-				onload: getHTML,
-				timeout: delay-1000,
-				ontimeout: getTimeout,
-				onerror: getError
-			});
+			// GM_xmlhttpRequest({
+			// 	method: "GET",
+			// 	url: url,
+			// 	context: {img: img, idUrl: url }, 
+			// 	onload: getHTML,
+			// 	timeout: delay-1000,
+			// 	ontimeout: getTimeout,
+			// 	onerror: getError
+			// });
+			http_delay=http_delay+500;
+			setTimeout(xmlhtml, http_delay, url, img, delay);
 	}
-	setTimeout(testDelay, delay, id, img, delay);
+	// setTimeout(testDelay, delay, id, img, delay);
+}
+function xmlhtml (url, img, delay) {
+	// body... 
+		GM_xmlhttpRequest({
+		method: "GET",
+		url: url,
+		context: {img: img, idUrl: url }, 
+		onload: getHTML,
+		timeout: delay-1000,
+		ontimeout: getTimeout,
+		onerror: getError
+	});
+	http_delay=http_delay-500;
 }
 function testDelay(id,img, delay)
 {
