@@ -193,9 +193,9 @@ if(first){
 	}
 	else if(isAuthor)
 	{
-		var list_table = document.querySelectorAll('#main_content > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(1) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child(1)')[0];
+		var list_table = document.querySelectorAll('.pl-2 a');
 		
-		var rows = list_table.getElementsByTagName('a');
+		// var rows = list_table.getElementsByTagName('a');
 		for (i = 2; i < rows.length; i++) 
 		{
 			populateCovers(rows[i], coverList, isSeries, isAuthor);
