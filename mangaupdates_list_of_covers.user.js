@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.21.1
+// @version     1.22
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -76,6 +76,7 @@ GM_addStyle("	.coverTop{\
 	top: 50px;\
 			padding: 	1em;\
 			box-sizing: border-box;\
+            z-index: 2;\
 		}\
 		.coverList{\
 	background-color: lightgray;\
@@ -165,10 +166,12 @@ if(first){
     document.body.appendChild(coverListTop);
 	if(isSeries)
 	{
-		var rows = document.getElementsByClassName('col1');
+		var rows = document.querySelectorAll('.py-1 >a');
+		console.log(isSeries);
+		console.log(rows.length);
 		for (i = 0; i < rows.length; i++) 
 		{
-			populateCovers(rows[i], coverList, isSeries, isAuthor);
+			populateCovers(rows[i], coverList, false, true);
 			// rows[i].parentNode.className = "hideRow";
 		}
 		// var list_table = document.getElementsByClassName("series_rows_table")[0];
@@ -178,11 +181,11 @@ if(first){
 	}
 	else if(isPubl)
 	{
-		var rows = document.querySelectorAll('#main_content table table td.text a');
+		var rows = document.querySelectorAll('.p-1 > a');
 		console.log(isPubl);
 		console.log(rows.length);
 		// rows = list_table.getElementsByTagName('a');
-		for (i = 2; i < rows.length; i++) 
+		for (i = 1; i < rows.length; i++)
 		{
 			populateCovers(rows[i], coverList, isSeries, true);
 		}
@@ -194,7 +197,8 @@ if(first){
 	else if(isAuthor)
 	{
 		var list_table = document.querySelectorAll('.pl-2 a');
-		
+
+		var rows = list_table;
 		// var rows = list_table.getElementsByTagName('a');
 		for (i = 2; i < rows.length; i++) 
 		{
@@ -207,10 +211,10 @@ if(first){
 	}
 	else if(isGroup)
 	{
-		var list_table = document.querySelectorAll('#main_content > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(3) > td:nth-child(1) > table:nth-child(1) > tbody:nth-child(1) > tr:nth-child(2) > td:nth-child(1) > table:nth-child(1)')[0];
-		
-		var rows = list_table.getElementsByTagName('a');
-		for (i = 0; i < rows.length; i++) 
+		var list_table = document.querySelectorAll('.p-1 > a');
+		rows = list_table;
+		//var rows = list_table.getElementsByTagName('a');
+		for (i = 1; i < rows.length-1; i++)
 		{
 			populateCovers(rows[i], coverList, isSeries, true);
 		}
@@ -429,7 +433,7 @@ function getHTML(response)
 	// if (!response.responseXML) {
 	      responseXML = (new DOMParser()).parseFromString(response.responseText, "text/html");
 	    // }
-	var image = responseXML.querySelectorAll(	'div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(2) > center:nth-child(1) > img:nth-child(1)');
+	var image = responseXML.querySelectorAll(	'.sContent .img-fluid');
 // 									'div.sContainer:nth-child(4) > div:nth-child(1) > div:nth-child(2) > center:nth-child(1) > img:nth-child(1)'
 	if(image[0]){
 
