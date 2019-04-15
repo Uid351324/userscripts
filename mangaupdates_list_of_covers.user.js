@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.21
+// @version     1.21.1
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
