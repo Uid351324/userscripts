@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.22
+// @version     1.23
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -166,7 +166,7 @@ if(first){
     document.body.appendChild(coverListTop);
 	if(isSeries)
 	{
-		var rows = document.querySelectorAll('.py-1 >a');
+		var rows = document.querySelectorAll('.py-1');
 		console.log(isSeries);
 		console.log(rows.length);
 		for (i = 0; i < rows.length; i++) 
@@ -181,13 +181,13 @@ if(first){
 	}
 	else if(isPubl)
 	{
-		var rows = document.querySelectorAll('.p-1 > a');
+		var rows = document.querySelectorAll('.p-1');
 		console.log(isPubl);
 		console.log(rows.length);
 		// rows = list_table.getElementsByTagName('a');
 		for (i = 1; i < rows.length; i++)
 		{
-			populateCovers(rows[i], coverList, isSeries, true);
+			populateCovers(rows[i], coverList, true, false);
 		}
 		
 		// list_table.className = "hideThis";
@@ -196,11 +196,11 @@ if(first){
 	}
 	else if(isAuthor)
 	{
-		var list_table = document.querySelectorAll('.pl-2 a');
+		var list_table = document.querySelectorAll('.pl-2');
 
 		var rows = list_table;
 		// var rows = list_table.getElementsByTagName('a');
-		for (i = 2; i < rows.length; i++) 
+		for (i = 1; i < rows.length; i++)
 		{
 			populateCovers(rows[i], coverList, isSeries, isAuthor);
 		}
@@ -211,7 +211,7 @@ if(first){
 	}
 	else if(isGroup)
 	{
-		var list_table = document.querySelectorAll('.p-1 > a');
+		var list_table = document.querySelectorAll('.p-1');
 		rows = list_table;
 		//var rows = list_table.getElementsByTagName('a');
 		for (i = 1; i < rows.length-1; i++)
@@ -306,13 +306,13 @@ function setClassdisplay(klass, display)
 function populateCovers(element, coverList, isSeries, isAuthor)
 {
 	var id;
-	if(isSeries)
+	if(isSeries || isAuthor)
 	{
+//		id = element.lastChild.href.split("=")[1];
+//	}
+//	else if(isAuthor)
+//	{
 		id = element.lastChild.href.split("=")[1];
-	}
-	else if(isAuthor)
-	{
-		id = element.href.split("=")[1];
 // 		console.log("href: " + element.href);
 // 		console.log("text: " + element.textContent);
 		if(element.href != '' && element.textContent != '' )
@@ -337,7 +337,7 @@ function populateCovers(element, coverList, isSeries, isAuthor)
 	link.appendChild(span);
 	link.href =  protocl + "www.mangaupdates.com/series.html?id=" + id;
 	var text;
-	if(isSeries)
+	if(isSeries || isAuthor)
 	{
 		text = element.lastChild.textContent;
 		var clones = element.getElementsByTagName("img");
