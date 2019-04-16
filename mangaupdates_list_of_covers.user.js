@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.23
+// @version     1.24
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -133,10 +133,10 @@ GM_addStyle("	.coverTop{\
 			float: 		left;\
 			}\
 		.lazy{\
-			max-height: 350px;\
+			max-height: 345px;\
 		}\
 		.lazyPost{\
-			max-height: 350px;\
+			max-height: 345px;\
 		}\
 		");
 
