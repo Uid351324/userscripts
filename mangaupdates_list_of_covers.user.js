@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.24
+// @version     1.25
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -211,10 +211,10 @@ if(first){
 	}
 	else if(isGroup)
 	{
-		var list_table = document.querySelectorAll('.p-1');
+		var list_table = document.querySelectorAll('.text-truncate.p-1');
 		rows = list_table;
 		//var rows = list_table.getElementsByTagName('a');
-		for (i = 1; i < rows.length-1; i++)
+		for (i = 0; i < rows.length; i++)
 		{
 			populateCovers(rows[i], coverList, isSeries, true);
 		}
@@ -348,14 +348,14 @@ function populateCovers(element, coverList, isSeries, isAuthor)
 			
 		}
 	}
-	else if(isAuthor)
+	else //if(isAuthor)
 	{
 		text = element.textContent;
 	}
-	else{
+	/*else{
 		var info = element.getElementsByClassName('text');
 		text = info[0].firstChild.firstChild.textContent;
-	}
+	}*/
 	img.alt = text;
  	console.log("text: " + text);
 	cover.className = "cover";
