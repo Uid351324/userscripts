@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.25
+// @version     1.26
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -312,6 +312,9 @@ function populateCovers(element, coverList, isSeries, isAuthor)
 //	}
 //	else if(isAuthor)
 //	{
+        console.log( element.lastChild);
+        if(typeof element.lastChild.href  == 'undefined'){
+            return;}
 		id = element.lastChild.href.split("=")[1];
 // 		console.log("href: " + element.href);
 // 		console.log("text: " + element.textContent);
