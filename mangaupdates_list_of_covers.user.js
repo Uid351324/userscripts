@@ -14,7 +14,7 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.26
+// @version     1.27
 // @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
 // @grant       GM_setValue
 // @grant       GM_getValue
@@ -63,7 +63,9 @@ document.body.appendChild(buttons);
     	tags = QueryUrl();
     	var utext = document.querySelectorAll('textarea.inbox')[0];
     	var re = /\+/g;
-    	utext.value = tags.tags.replace(re, " ");
+    	// utext.value = tags.tags.replace(re, " ");
+    	this.fill("#main_content  form",{ 'display-option-list': 'list', 'tags': tags.tags.replace(re, " "), 'NOGENRE[15]': true, 'NOGENRE[23]': true },false);
+
 	}
 }
 GM_addStyle("	.coverTop{\
