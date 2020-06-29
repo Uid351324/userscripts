@@ -14,8 +14,8 @@
 // @exclude		https://www.mangaupdates.com/series.html?id=*
 // @include		https://www.mangaupdates.com/publishers.html*
 // @include		http://www.mangaupdates.com/publishers.html*
-// @version     1.26a
-// @resource 	loading https://d.maxfile.ro/wqcsgpfwbg.gif
+// @version     1.28
+// @resource 	loading http://www.mangaupdates.com/favicon.ico
 // @grant       GM_setValue
 // @grant       GM_getValue
 // @grant       GM_log
@@ -68,7 +68,6 @@ document.body.appendChild(buttons);
     	document.querySelector("input[id=display-option-list]").checked=true
     	document.querySelector("input[id=gn15").checked=true
     	document.querySelector("input[id=gn23").checked=true
-    	// this.fill("#main_content  form",{ 'display-option-list': 'list', 'tags': tags.tags.replace(re, " "), 'NOGENRE[15]': true, 'NOGENRE[23]': true },false);
 
 	}
 }
@@ -507,6 +506,16 @@ function ll() {
 	function loadImage (el, i, images) {//++
 	    var img = new Image();
 //	      , src = el.getAttribute('data-src');//--
+		img.addEventListener('error', (event) => {
+
+			    console.log("2");
+			    console.log( `${event.type}: Loading image ${event.target.id}\n`);
+			    console.log( event.target);
+			    console.log( el);
+			    var url = protocl + "www.mangaupdates.com/series.html?id=" + el.id;
+			    GM_deleteValue(url);
+	    		getImgSrc(el.id, img);//++
+			});
 	    var id = el.id;//++
 	    img.onload = function() {
 	      if (!! el.parent){
